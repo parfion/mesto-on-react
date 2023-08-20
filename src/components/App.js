@@ -10,7 +10,7 @@ function App() {
 	const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
 	const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
 	const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
 
 	function handleEditProfileClick() {
     setEditProfilePopupOpen(true);
@@ -32,9 +32,8 @@ function App() {
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
-    setSelectedCard(false);
+    setSelectedCard(null);
   }
-
 
   return (
     <div className="page">
@@ -48,7 +47,7 @@ function App() {
       <Footer />
 
 			<PopupWithForm id="editButton" name="formProfile" title="Редактировать профиль" 
-			isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
+			isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} buttonText={`Сохранить`}>
 				
 				<input id="profile-input" className="popup__input popup__input_value_name" name="name" type="text" required 
         minLength="2" maxLength="40" placeholder="Имя" />
@@ -56,12 +55,10 @@ function App() {
 				<input id="profession-input" className="popup__input popup__input_value_profession" name="profession" type="text" 
 				required minLength="2" maxLength="200" placeholder="Вид деятельности" />
 				<span className="profession-input-error form__type-error"></span>
-				<button id="saveButton" className="button popup__save-button" type="submit" 
-				aria-label="Обновить данные профайла">Сохранить</button>
 			</PopupWithForm>
 
 			<PopupWithForm id="addButton" name="formCard" title="Новое место" 
-			isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
+			isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} buttonText={`Создать`}>
 				
 				<input id="card-name-input" className="popup__input popup__input_value_name-card" name="image" type="text" 
         placeholder="Название" required minlength="2" maxlength="30" />
@@ -69,18 +66,14 @@ function App() {
         <input id="card-link-input" className="popup__input popup__input_value_picture-card" name="link" type="url" 
         placeholder="Ссылка на картинку" required />
         <span className="card-link-input-error form__type-error"></span>
-        <button id="addCardButton" className="button popup__save-button" type="submit" 
-        aria-label="Создать новую карточку">Создать</button>
 			</PopupWithForm>
 
 			<PopupWithForm id="popupAvatar" name="formEditAvatar" title="Обновить аватар" 
-			isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
+			isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} buttonText={`Сохранить`}>
 				
 				<input id="avatar-link-input" className="popup__input popup__input_value_picture-card" name="link" type="url" 
         placeholder="Ссылка на картинку" required />
         <span className="avatar-link-input-error form__type-error"></span>
-        <button id="saveNewAvatarButton" className="button popup__save-button" type="submit" 
-        aria-label="Потвердить удаление карточки">Сохранить</button>
 			</PopupWithForm>
 
       <ImagePopup id="popupImage" card={selectedCard} onClose={closeAllPopups}></ImagePopup>
