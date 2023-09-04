@@ -32,7 +32,7 @@ class Api {
     }
 
     // Редактирование профиля
-    editUserInfo(name, about) {
+    setUserInfo(name, about) {
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
             headers: this._headers,
@@ -66,19 +66,10 @@ class Api {
         .then(this._checkResponse)
     }
 
-    // Поставить лайк
-    addLike(card) {
+    // Поставить или убрать лайк
+    changeLikeCardStatus(card, isLike) {
         return fetch(`${this._baseUrl}/cards/${card}/likes`, {
-            method: 'PUT',
-            headers: this._headers
-        })
-        .then(this._checkResponse)
-    }
-
-    // Убрать лайк
-    deleteLike(card) {
-        return fetch(`${this._baseUrl}/cards/${card}/likes`, {
-            method: 'DELETE',
+            method: !isLike ? "DELETE" : "PUT",
             headers: this._headers
         })
         .then(this._checkResponse)
